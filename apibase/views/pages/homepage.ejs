@@ -1,0 +1,100 @@
+<h1 class="display-4">Welcome to APIBase</h1>
+
+        <!-- SEARCH Filter -->
+        <div align="right">
+                  <input id="myInput" type="text" placeholder="Search API . .">
+        </div>
+        <!-- SEARCH Filter END -->
+
+        <!-- SELECT Filter -->
+        <div align="left">
+              <select  id="filter" type="text">
+                  <option value="">Show All</option>
+                  <option value="Development">Development</option>
+                  <option value="UAT">UAT</option>
+                  <option value="Production">Production</option>
+              </select>
+        </div>
+        <!-- SELECT Filter END -->
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>API Name</th>
+            <th>URL</th>
+            <th>Environment</th>
+        </tr>
+
+    </thead>
+    <tbody id="mytable">
+
+
+        <% apis.forEach(function(api){ %>
+
+            <tr>
+                <td><%= api.title %></td>
+                <td><%= api.body %></td>
+                <td><%= api.environment %></td>
+                <td><button data-whatever="<%= api.body%>" class="btn btn-success" id="<%= api.id %>" data-target="#myModal" data-toggle="modal">Call</button></td>
+
+              <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                <h5>API Response</h5>
+                              </div>
+                              <div class="modal-body embed-responsive embed-responsive-16by9">
+                                  <iframe class="embed-responsive-item"></iframe>
+                              </div>
+                              <div class="modal-footer">  <button type="button" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">close</button></div>
+                          </div>
+                      </div>
+                  </div>
+              </td>
+            </tr>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+            <script>window.jQuery || document.write('<script src="js/jquery-1.10.1.min.js"><\/script>')</script>
+            <script>
+
+            // jQuery FOR API Response
+            $('#<%= api.id %>').on('click', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('data-whatever');
+            $(".modal-body").html('<iframe width="100%" height="100%" frameborder="0" scrolling="yes" allowtransparency="true" src="'+url+'"></iframe>');
+            });
+            // jQuery FOR API Response END
+
+
+            // jQuery FOR SEARCH Filter
+            $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#mytable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                  });
+                });
+              });
+            // jQuery FOR SEARCH Filter END
+
+
+              // jQuery FOR SELECT Filter
+                $(document).ready(function(){
+                $("#filter").on("change", function() {
+                var value = $(this).val().toLowerCase();
+                $("#mytable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                      });
+                    });
+                  });
+              // jQuery FOR SELECT Filter END
+
+          </script>
+
+
+
+
+        <% }) %>
+
+
+    </tbody>
+</table>

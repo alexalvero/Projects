@@ -1,0 +1,25 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/apis/list" >API</a></li>
+  <li class="breadcrumb-item active">Edit</li>
+</ol>
+  <h1 class="display-4">Edit API</h1>
+  <form method="post"action="/apis/update/<%= api.id %>">
+    <div class="form-group">
+        <label for="title">API Name</label>
+        <input type="text" name="title" class="form-control" value="<%= api.title %>">
+    </div>
+    <div class="form-group">
+        <label for="body">URL</label>
+        <input type="text" name="body" class="form-control" value="<%= api.body %>">
+    </div>
+    <div class="form-group">
+        <label for="environment">Environment:</label>
+        <select required type="text" name="environment" class="form-conrtol" value="<%= api.environment %>">
+          <option value="">Select . . </option>
+          <option value="Development">Development</option>
+          <option value="UAT">UAT</option>
+          <option value="Production">Production</option>
+        </select>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>

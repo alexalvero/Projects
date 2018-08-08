@@ -1,0 +1,26 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/articles/list" >API</a></li>
+  <li class="breadcrumb-item active">Add</li>
+</ol>
+  <h1 class="display-4">Add an API</h1>
+  <form method="post"action="/apis/create">
+    <div class="form-group">
+        <label for="title">API Name</label>
+        <input type="text" name="title" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="body">URL</label>
+        <input type="text" name="body" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="environment">Environment:</label>
+      <select required type="text" name="environment" class="form-conrtol">
+      <option value="">Select . .</option>
+      <option value="Development">Development</option>
+      <option value="UAT">UAT</option>
+      <option value="Production">Production</option>
+      </select>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary">
+
+  </form>

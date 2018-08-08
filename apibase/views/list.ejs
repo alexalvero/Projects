@@ -1,0 +1,71 @@
+<h1 class="display-4">Manage APIs</h1>
+
+    <!-- SEARCH Filter -->
+    <div align="right">
+              <input id="myInput" type="text" placeholder="Search API . .">
+    </div>
+    <!-- SEARCH Filter END -->
+
+    <!-- SELECT Filter -->
+    <div align="left">
+          <select  id="filter" type="text">
+              <option value="">Show All</option>
+              <option value="Development">Development</option>
+              <option value="UAT">UAT</option>
+              <option value="Production">Production</option>
+          </select>
+   </div>
+    <!-- SELECT Filter END -->
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>API Name</th>
+            <th>URL</th>
+            <th>Environment</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody  id="mytable">
+        <% apis.forEach(function(api){ %>
+            <tr>
+                <td><%= api.title %></td>
+                <td><%= api.body %></td>
+                <td><%= api.environment%></td>
+                <td>
+                    <a href="/apis/edit/<%= api.id %>" class="btn btn-info">Edit</a>
+                    <a onclick= "return confirm('Are you sure you want to DELETE this API?')"href="/apis/delete/<%= api.id %>" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+            <script>window.jQuery || document.write('<script src="js/jquery-1.10.1.min.js"><\/script>')</script>
+
+            <script>
+            // jQuery FOR SEARCH Filter
+            $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#mytable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                  });
+                });
+              });
+            // jQuery FOR SEARCH Filter END
+
+
+              // jQuery FOR SELECT Filter
+              $(document).ready(function(){
+              $("#filter").on("change", function() {
+              var value = $(this).val().toLowerCase();
+              $("#mytable tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                  });
+                });
+              // jQuery FOR SELECT Filter END
+
+
+            </script>
+        <% }) %>
+    </tbody>
+</table>

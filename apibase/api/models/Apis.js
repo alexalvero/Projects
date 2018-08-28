@@ -17,6 +17,9 @@ module.exports = {
     environment: {
       type: 'string'
     },
+    status:{
+      type: 'string'
+    },
   },
 datastore : 'mongodb'
 };

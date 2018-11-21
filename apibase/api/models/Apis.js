@@ -20,6 +20,8 @@ module.exports = {
     status:{
       type: 'string'
     },
+    
+
   },
 datastore : 'mongodb'
 };

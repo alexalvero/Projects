@@ -30,7 +30,7 @@
             <th>Environment</th>
             <th></th>
             <th></th>
-            <th class="status1" style="display:none">Status</th>
+            <th class="status1" >Status</th>
         </tr>
 
     </thead>
@@ -38,15 +38,13 @@
 
 
         <% apis.forEach(function(api){ %>
-
             <tr class='<%= api.id %>'>
                 <td><%= api.title %></td>
                 <td><%= api.body %></td>
                 <td><%= api.environment %></td>
                 
-                <td><button data-whatever="<%= api.body%>" class="btn btn-success" id="<%= api.id %>" data-target="#myModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Call</button></td>
-                <td><button data-target="<%= api.body%>" class="status btn btn-success" id="<%= api.environment %>" style="display:none">Status</button></td>
-
+                <td><button data-whatever="<%= api.body%>" class="btn btn-success" id="<%= api.title %>" data-target="#myModal" data-toggle="modal" data-backdrop="static" data-keyboard="false">Call</button></td>
+                <td><button data-target="<%= api.body%>" class="status btn btn-success" id="<%= api.id %>" style="display:none">Status</button></td>
               <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-lg">
                           <div class="modal-content">
@@ -69,7 +67,7 @@
             <script>
                 
             // jQuery FOR API Response
-            $('#<%= api.id %>').on('click', function(e){
+            $('#<%= api.title %>').on('click', function(e){
             e.preventDefault();
             var url = $(this).attr('data-whatever');
             $(".modal-body").html('<iframe id="myiframe" name="myiframe" width="100%" height="100%" frameborder="0" scrolling="yes" allowtransparency="true" src="'+url+'"></iframe>');
@@ -81,7 +79,6 @@
                     $("#myModal .modal-header").append("<div class='appended'><h6>API Status: "+xhr.status+"</div>")
                 }
             })
-
             });
             // jQuery FOR API Response END
                    
@@ -96,7 +93,6 @@
                 
               });
             // // jQuery FOR SELECT Filter END  
-
             // jQuery FOR SEARCH Filter
             $(document).ready(function(){
             $("#myInput").on("keyup", function() {
@@ -107,36 +103,34 @@
                 });
               });
             // jQuery FOR SEARCH Filter END
-
  
               
           
-            $('#<%= api.environment %>').one("click", function(e){
+            $('#<%= api.id %>').on("click", function(e){
                 e.preventDefault();
-                
-                
+                setTimeout(function(){  $('#<%= api.id %>').trigger("click"); }, 10000);
+                $(".appended2").empty();
                 $.ajax({
                     url: '<%= api.body %>',
                     data: {},
                     complete: function(xhr, statusText){
                         if(xhr.status == 200){
-                            $("#table .<%= api.id %>").append("<td> UP </td>")
+                            $("#table .<%= api.id %>").append("<div class='appended2'><td> UP </td></div>")
                         }
                         else{
-                            $("#table .<%= api.id %>").append("<td> DOWN </td>")
+                            $("#table .<%= api.id %>").append("<div class='appended2'><td> DOWN </td></div>")
                         }
                     }
-
                 })
             });
            
            
+           
            $('#trigger').on('click', function(){
-               $('#<%= api.environment  %>').trigger("click");
-               $("#table .status1").show()
+               $('#<%= api.id %>').trigger("click");
+               
+              
            })
-
-
            $('#close').on('click',function(){
                $(".appended").empty()
            })     
@@ -144,18 +138,10 @@
            $('#myModal').on('hidden.bs.modal', function (e) {
                 $(".appended").empty();
             })
-
-
             
           </script>
-
-
-
-
         <% }) %>
 
           
     </tbody>
 </table>
-
-

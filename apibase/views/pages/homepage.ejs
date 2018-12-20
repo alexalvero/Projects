@@ -108,7 +108,7 @@
           
             $('#<%= api.id %>').on("click", function(e){
                 e.preventDefault();
-                setTimeout(function(){  $('#<%= api.id %>').trigger("click"); }, 10000);
+                // setTimeout(function(){  $('#<%= api.id %>').trigger("click"); }, 10000);
                 $(".appended2").empty();
                 $.ajax({
                     url: '<%= api.body %>',
